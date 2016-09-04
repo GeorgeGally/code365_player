@@ -31,7 +31,7 @@
 
 <body style="background:#000000; color: white">
 
-  <div class="cover" id="cover" width="1024px" height="800px"></div>  
+<div class="cover" id="cover" width="1024px" height="800px"></div>  
 
 <div id="myProgress">
   <div id="myBar"></div>
@@ -40,10 +40,11 @@
 <script type="text/javascript">
 
   var genres = ["slomo", "deeptechno", "ebm", "disco", "deepdisco", "indiedisco", "slomodisco", "slomohouse", "downtempotechno", "downtempo", "deepness", "pixies", "lowmotion", "plastikman", "minimalhouse", "acidhouse", "cosmic", "cosmicdisco", "ambient"];
+  
   var files = [];
   var timerLength = 100000;
 
-    $.ajax({
+  $.ajax({
       type: "POST",
       url: "get_files.php",
       success: function(msg) {
@@ -51,7 +52,7 @@
         msg = jQuery.parseJSON(msg);
         processFiles(msg)
       }
-    })
+  })
 
 
   function processFiles(msg){
