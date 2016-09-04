@@ -18,14 +18,9 @@
 
 
 <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
-<!-- <script type="text/javascript" src="js/share.js"></script> -->
-<!-- <script type="text/javascript" src="js/stats.min.js"></script> -->
+<script type="text/javascript" src="js/creative.js"></script>
 
-
-
-  <script type="text/javascript" src="js/creative.js"></script>
-<!--   <script src="js/dat.gui.min.js"></script> -->
-  <script src="js/utils.js"></script>
+<script src="js/utils.js"></script>
   
 
 <link rel="stylesheet" href="css/normalize.css" type="text/css" media="screen" />
@@ -38,9 +33,13 @@
 
   <div class="cover" id="cover" width="1024px" height="800px"></div>  
 
+<div id="myProgress">
+  <div id="myBar"></div>
+</div>
+
 <script type="text/javascript">
 
-  var genres = ["slomo", "deeptechno", "ebm", "disco", "deepdisco", "indiedisco", "slomodisco", "slomohouse", "downtempotechno", "downtempo", "deepness", "pixies", "lowmotion", "plastikman", "minimalhouse", "acidhouse"];
+  var genres = ["slomo", "deeptechno", "ebm", "disco", "deepdisco", "indiedisco", "slomodisco", "slomohouse", "downtempotechno", "downtempo", "deepness", "pixies", "lowmotion", "plastikman", "minimalhouse", "acidhouse", "cosmic", "cosmicdisco", "ambient"];
   var files = [];
   var timerLength = 100000;
 
@@ -68,11 +67,12 @@
 window.addEventListener('keydown', keyPress, false);
 
 function keyPress(){
+  
   var keyCode = event.keyCode;
   if (keyCode == 32) {
   console.log('keypress');
   var newfile = randomInt(files.length);
-  console.log(newfile)
+  //console.log(newfile)
   newPage( files[newfile] );
 }
 };
@@ -84,21 +84,32 @@ var timer_counter = 0;
 var timer = function() {
 
   var newfile = randomInt(files.length-1);
-  console.log("newfile: " + newfile);
   
   newPage( files[newfile] );
-  timer_counter ++;
-  if (timer_counter >= files.length) timer_counter = 0;
-  console.log(timer_counter);
-  setTimeout(function(){ 
-  timer(); }, 
-  timerLength);
+  move();
   }
 
 
+function move() {
+    var elem = document.getElementById("myBar"); 
+    var width = 1;
+    var id = setInterval(frame, 100);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+            timer();
+        } else {
+          width += 0.2; 
+          elem.style.width = width + '%'; 
+        }
+    }
+}
+
+//move();
+
 
 function newPage( file ) {
-  
+  console.log("* " + file);
   var genre = "#" + genres[randomInt(genres.length-1)];
   file += genre;
   location.hash = file; 
@@ -168,6 +179,8 @@ window.addEventListener('resize', resize, false);
 
 
 <script src="js/filters.js"></script>
+
+
 
 
 </body>
